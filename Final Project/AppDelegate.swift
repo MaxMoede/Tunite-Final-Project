@@ -6,16 +6,66 @@
 //  Copyright © 2018 Max Moede. All rights reserved.
 //
 
+
+// Hey Professor, some things to be aware of:
+//
+//
+// Soundcloud is no longer taking API requests from unregistered ios apps,
+// so I decided to integrate spotify into the app instead. You can find this by:
+// 1. clicking on a pin on the map view
+// 2. clicking the arrow of the annotation to bring you to a (very poor looking) profile page
+// 3. clicking the login with spotify button.
+//
+// Also...
+// The messaging portion of the app has yet to have been built. Just got the developer account today
+// but my database is set up in a way where I should be able to handle messaging somewhat easily.
+//
+//
+// I focused on setting up backend functionality on this. I know it looks bad on the front end side
+// but things will look much better come time to present.
+//
+// - Max Moede
+
 import UIKit
+import Firebase
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var userData : User?
     var window: UIWindow?
+    var auth = SPTAuth()
 
-
+    // 1
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        // 2- check if app can handle redirect URL
+        if auth.canHandle(auth.redirectURL) {
+            // 3 - handle callback in closure
+            auth.handleAuthCallback(withTriggeredAuthURL: url, callback: { (error, session) in
+                // 4- handle error
+                if error != nil {
+                    print("error!")
+                }
+                // 5- Add session to User Defaults
+                let userDefaults = UserDefaults.standard
+                let sessionData = NSKeyedArchiver.archivedData(withRootObject: session)
+                userDefaults.set(sessionData, forKey: "SpotifySession")
+                userDefaults.synchronize()
+                // 6 - Tell notification center login is successful
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
+            })
+            return true
+        }
+        return false
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
+        auth.redirectURL = URL(string: "mmoede-tunite-login")
+        auth.sessionUserDefaultsKey = "current session"
         return true
     }
 
