@@ -56,7 +56,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             "instrument" : aProfile.instrument as Any,
             "bio" : aProfile.bio as Any,
             "latitude" : aProfile.latitude as Any,
-            "longitude" : aProfile.longitude as Any
+            "longitude" : aProfile.longitude as Any,
+            "id" : aProfile.id as Any
         ]
     }
     
@@ -152,18 +153,19 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let imagesRef = storageRef.child("images").child((user?.uid)!)
         userRoot = Database.database().reference(withPath: "users")
         print("running")
-        if ((user) != nil) {
-            let newUserRef = self.userRoot?.child((user?.uid)!)
-            newUserRef?.setValue(self.toAnyObject(aProfile: myProfile!))
-            let storagePath = imagesRef.child("myPic.jpg")
-            let imageData = myProfile?.myPic?.jpeg(.lowest)
-            let uploadTask = storagePath.putData(imageData!, metadata: nil) { (metadata, error) in
-                guard let metadata = metadata else {
-                    return
-                }
-                let downloadURL = metadata.downloadURL
+        //if ((user) != nil) {
+        let newUserRef = self.userRoot?.child((user?.uid)!)
+        myProfile?.id = user?.uid
+        newUserRef?.setValue(self.toAnyObject(aProfile: myProfile!))
+        let storagePath = imagesRef.child("myPic.jpg")
+        let imageData = myProfile?.myPic?.jpeg(.lowest)
+        let uploadTask = storagePath.putData(imageData!, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                return
             }
+            let downloadURL = metadata.downloadURL
         }
+        //}
     }
     
     

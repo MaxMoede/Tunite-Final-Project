@@ -39,9 +39,10 @@ class SignUpPage: UIViewController, UITextFieldDelegate {
     }
 
     
-    func toAnyObject(_ aName: String) -> Any {
+    func toAnyObject(_ aName: String, _ id: String) -> Any {
         return [
-            "name" : aName as Any
+            "name" : aName as Any,
+            "id" : id as Any
         ]
     }
     
@@ -71,7 +72,7 @@ class SignUpPage: UIViewController, UITextFieldDelegate {
                 changeRequest?.commitChanges { (error) in
                 }
                 let userRoot = Database.database().reference(withPath: "users").child((user?.uid)!)
-                userRoot.setValue(self.toAnyObject(self.nameL.text!))
+                userRoot.setValue(self.toAnyObject(self.nameL.text!, (user?.uid)!))
                 let alert = UIAlertController(title: "myAlert", message: "You've successfully signed up!", preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .default) { (alert: UIAlertAction!) -> Void in
                     self.performSegue(withIdentifier: "gotoLogin", sender: self)

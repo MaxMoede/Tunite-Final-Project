@@ -11,6 +11,28 @@ import Firebase
 import CoreLocation
 import GeoFire
 
+extension UIView {
+    func startRotating(duration: Double = 1) {
+        let kAnimationKey = "rotation"
+        
+        if self.layer.animation(forKey: kAnimationKey) == nil {
+            let animate = CABasicAnimation(keyPath: "transform.rotation")
+            animate.duration = duration
+            animate.repeatCount = Float.infinity
+            animate.fromValue = 0.0
+            animate.toValue = Float(M_PI * 2.0)
+            self.layer.add(animate, forKey: kAnimationKey)
+        }
+    }
+    func stopRotating() {
+        let kAnimationKey = "rotation"
+        
+        if self.layer.animation(forKey: kAnimationKey) != nil {
+            self.layer.removeAnimation(forKey: kAnimationKey)
+        }
+    }
+}
+
 class SearchResults: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
@@ -23,11 +45,16 @@ class SearchResults: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var instrument: String?
     var thePlayers = [Profile]()
     let locationManager = CLLocationManager()
+    //let loaderImage = #imageLiteral(resourceName: "rockRoll.png")
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return thePlayers.count
     }
     
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlayer = thePlayers[(indexPath as NSIndexPath).row]
         print("name: ")
@@ -78,8 +105,13 @@ class SearchResults: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var testLabel: UILabel!
     var results : String?
     
+    
+    @IBOutlet weak var customLoader: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //customLoader.startAnimating()
+        customLoader.startRotating(duration: 1)
         configureLocationManager()
         databaseRef = Database.database().reference().child("users")
         geoFire = GeoFire(firebaseRef: Database.database().reference().child("geofire"))
@@ -111,11 +143,11 @@ class SearchResults: UIViewController, UITableViewDelegate, UITableViewDataSourc
         regionQuery?.observe(.keyEntered, with: { (key, location) in
             self.databaseRef?.queryOrderedByKey().queryEqual(toValue: key).observe(.value, with: { snapshot in
                 print("found some great values")
-                print("instrument: \(self.instrument ?? "No Instrument")")
-                
+                print("instrument: \(snapshot.key ?? "No Instrument")")
                 DispatchQueue.global(qos: .background).async {
                     let newProfile = Profile(location: location, key: key, snapshot: snapshot)
                     self.addProfile(profile: newProfile)
+                    
                 }
                 
             })
@@ -141,8 +173,14 @@ class SearchResults: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         DispatchQueue.main.async {
                             self.thePlayers.append(profile)
                             self.tableView.reloadData()
+                            self.customLoader.stopRotating()
                         }
                     }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.thePlayers.append(profile)
+                    self.tableView.reloadData()
                 }
             }
         }

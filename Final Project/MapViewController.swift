@@ -18,12 +18,24 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var mapL: UILabel!
     var userData : User?
     var databaseRef : DatabaseReference?
-    var geoFire: GeoFire?
+    var geoFire: GeoFire? {
+        didSet {
+            configureLocationManger()
+        }
+    }
     var regionQuery: GFRegionQuery?
+    
+    /*var sentProfile: Profile? {
+        didSet {
+            navigationItem.title = sentProfile?.name
+            
+            observeMessages()
+        }
+    }*/
     let locationManager = CLLocationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLocationManger()
+        //configureLocationManger()
         databaseRef = Database.database().reference().child("users")
         geoFire = GeoFire(firebaseRef: Database.database().reference().child("geofire"))
         mapL.text = "map Stuff"

@@ -28,6 +28,7 @@ extension UIImage {
 
 class Profile : NSObject, NSCoding, MKAnnotation {
     var myPic: UIImage?
+    var id: String?
     var name: String
     var instrument: String
     var skillLevel: String
@@ -64,6 +65,7 @@ class Profile : NSObject, NSCoding, MKAnnotation {
         instrument = aDecoder.decodeObject(forKey: "instrument") as! String
         bio = aDecoder.decodeObject(forKey: "bio") as! String
         myPic = aDecoder.decodeObject(forKey: "myPic") as? UIImage
+        id = aDecoder.decodeObject(forKey: "id") as? String
     }
     
     init(location: CLLocation, key: String, snapshot: DataSnapshot) {
@@ -76,11 +78,22 @@ class Profile : NSObject, NSCoding, MKAnnotation {
         let snapval = snapshot.value as! [String: AnyObject]
         let snaptemp = snapval[key] as! [String: AnyObject]
         name = snaptemp["name"] as? String ?? "N/A"
+        id = snaptemp["id"] as? String ?? "N/A"
         instrument = snaptemp["instrument"] as? String ?? "N/A"
         skillLevel = snaptemp["skillLevel"] as? String ?? "N/A"
         bio = snaptemp["bio"] as? String ?? "N/A"
         latitude = location.coordinate.latitude
         longitude = location.coordinate.longitude
+        myPic = #imageLiteral(resourceName: "genPic.jpg")
+    }
+    
+    init(snapshot: DataSnapshot){
+        let snapval = snapshot.value as! [String: AnyObject]
+        name = snapval["name"] as? String ?? "N/A"
+        id = snapval["id"] as? String ?? "N/A"
+        bio = snapval["bio"] as? String ?? "N/A"
+        instrument = snapval["instrument"] as? String ?? "N/A"
+        skillLevel = snapval["skillLevel"] as? String ?? "N/A"
         myPic = #imageLiteral(resourceName: "genPic.jpg")
     }
     
@@ -90,6 +103,7 @@ class Profile : NSObject, NSCoding, MKAnnotation {
         aCoder.encode(instrument, forKey: "instrument")
         aCoder.encode(bio, forKey: "bio")
         aCoder.encode(myPic, forKey: "myPic")
+        aCoder.encode(id, forKey: "id")
     }
 }
 

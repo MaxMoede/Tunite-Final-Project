@@ -34,6 +34,11 @@
 		509F352B2050F24100085FE9 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509F35292050F24000085FE9 /* SpotifyAuthentication.framework */; };
 		509F352C2050F24100085FE9 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509F352A2050F24000085FE9 /* SpotifyAudioPlayback.framework */; };
 		50F97CF22060B1CB00B64B91 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F97CF12060B1CB00B64B91 /* ChatLogController.swift */; };
+		50F97CF42061DA9700B64B91 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F97CF32061DA9700B64B91 /* MessageCell.swift */; };
+		50F97CF62061DEDA00B64B91 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F97CF52061DEDA00B64B91 /* Message.swift */; };
+		50F97CF82062020C00B64B91 /* messageBlip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F97CF72062020C00B64B91 /* messageBlip.swift */; };
+		50F97CFA2062159500B64B91 /* leftMessageBlip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F97CF92062159500B64B91 /* leftMessageBlip.swift */; };
+		50F97CFC20632A9F00B64B91 /* rockRoll.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F97CFB20632A9F00B64B91 /* rockRoll.png */; };
 		B964027361BEE4FEA8161568 /* Pods_Final_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0BCCB5F39177EA477BF1D1E /* Pods_Final_Project.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +94,11 @@
 		509F35292050F24000085FE9 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		509F352A2050F24000085FE9 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		50F97CF12060B1CB00B64B91 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		50F97CF32061DA9700B64B91 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		50F97CF52061DEDA00B64B91 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		50F97CF72062020C00B64B91 /* messageBlip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageBlip.swift; sourceTree = "<group>"; };
+		50F97CF92062159500B64B91 /* leftMessageBlip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = leftMessageBlip.swift; sourceTree = "<group>"; };
+		50F97CFB20632A9F00B64B91 /* rockRoll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rockRoll.png; sourceTree = "<group>"; };
 		58E5B4B1505D3F3A725FE03B /* Pods-Final ProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Final ProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Final ProjectUITests/Pods-Final ProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5E12246BF2F94400929D589F /* Pods-Final ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Final ProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Final ProjectTests/Pods-Final ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6555DB4F23CE58B3BDB3E89F /* Pods_Final_ProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Final_ProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,13 +188,17 @@
 				50551B382047A4BF003D6C4E /* HomeViewController.swift */,
 				50551B3A2047A4BF003D6C4E /* Main.storyboard */,
 				50F97CF12060B1CB00B64B91 /* ChatLogController.swift */,
+				50F97CF72062020C00B64B91 /* messageBlip.swift */,
+				50F97CF92062159500B64B91 /* leftMessageBlip.swift */,
 				509F3519204FE09A00085FE9 /* otherProfileView.swift */,
 				50284D85204B86960017F5D1 /* Profile.swift */,
 				50284D83204B74B60017F5D1 /* SignUpPage.swift */,
 				50284D81204B6C300017F5D1 /* LoginPage.swift */,
 				5072CDBF2049DEA4008B204C /* SearchResults.swift */,
 				509F3517204E222C00085FE9 /* profileCell.swift */,
+				50F97CF32061DA9700B64B91 /* MessageCell.swift */,
 				50551B682047ABF2003D6C4E /* MessagesViewController.swift */,
+				50F97CF52061DEDA00B64B91 /* Message.swift */,
 				50551B662047ABD7003D6C4E /* ProfileViewController.swift */,
 				50551B642047ABC0003D6C4E /* MapViewController.swift */,
 				50551B3D2047A4BF003D6C4E /* Assets.xcassets */,
@@ -192,6 +206,7 @@
 				50551B422047A4BF003D6C4E /* Info.plist */,
 				50284D7F204A5AAE0017F5D1 /* GoogleService-Info.plist */,
 				50284D87204CBF080017F5D1 /* genPic.jpg */,
+				50F97CFB20632A9F00B64B91 /* rockRoll.png */,
 				509F35252050EF2D00085FE9 /* Final Project-Bridging-Header.h */,
 			);
 			path = "Final Project";
@@ -346,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50551B412047A4BF003D6C4E /* LaunchScreen.storyboard in Resources */,
+				50F97CFC20632A9F00B64B91 /* rockRoll.png in Resources */,
 				50284D80204A5AAF0017F5D1 /* GoogleService-Info.plist in Resources */,
 				50284D88204CBF080017F5D1 /* genPic.jpg in Resources */,
 				50551B3E2047A4BF003D6C4E /* Assets.xcassets in Resources */,
@@ -540,11 +556,15 @@
 				509F351A204FE09A00085FE9 /* otherProfileView.swift in Sources */,
 				5072CDC02049DEA4008B204C /* SearchResults.swift in Sources */,
 				50284D84204B74B60017F5D1 /* SignUpPage.swift in Sources */,
+				50F97CF82062020C00B64B91 /* messageBlip.swift in Sources */,
 				50284D86204B86960017F5D1 /* Profile.swift in Sources */,
 				509F35282050EF2E00085FE9 /* BridgeViewController.m in Sources */,
 				50551B372047A4BF003D6C4E /* AppDelegate.swift in Sources */,
+				50F97CFA2062159500B64B91 /* leftMessageBlip.swift in Sources */,
 				50F97CF22060B1CB00B64B91 /* ChatLogController.swift in Sources */,
+				50F97CF62061DEDA00B64B91 /* Message.swift in Sources */,
 				509F3518204E222C00085FE9 /* profileCell.swift in Sources */,
+				50F97CF42061DA9700B64B91 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
